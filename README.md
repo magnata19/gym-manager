@@ -74,7 +74,8 @@ cp .env.example .env
 npx prisma migrate dev
 
 # Rodar a aplicação
-npm run start:dev```
+npm run start:dev
+```
 
 👨‍💻 Autor
 
