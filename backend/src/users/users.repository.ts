@@ -16,9 +16,9 @@ export class UsersRepository {
     return this.prismaService.user.findMany();
   }
 
-  async getUserByEmail(email: string): Promise<IUser | null> {
+  async getUserById(id: string): Promise<IUser | null> {
     return this.prismaService.user.findUnique({
-      where: { email },
+      where: { id },
     });
   }
 

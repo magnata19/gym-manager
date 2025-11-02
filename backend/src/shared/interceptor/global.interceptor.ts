@@ -14,11 +14,13 @@ export class GlobalLoggerInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const httpContext = context.switchToHttp();
     const request = httpContext.getRequest<Request>();
+    const preRequestTime = Date.now();
 
     return next.handle().pipe(
       tap(() => {
         const { method, url } = request;
-        this.logger.log(`${method} - ${url}`);
+        const requestTime = Date.now() - preRequestTime;
+        this.logger.log(`${method} - ${url} - ${requestTime}ms`);
       }),
     );
   }
