@@ -2,6 +2,7 @@
 import {
   ArgumentsHost,
   Catch,
+  ConsoleLogger,
   ExceptionFilter,
   HttpException,
   HttpStatus,
@@ -11,10 +12,13 @@ import { Request, Response } from 'express';
 
 @Catch()
 export class HttpFilterException implements ExceptionFilter {
-  constructor(private httpAdapter: HttpAdapterHost) {}
+  constructor(
+    private httpAdapter: HttpAdapterHost,
+    private logger: ConsoleLogger,
+  ) {}
 
   catch(exception: unknown, host: ArgumentsHost) {
-    console.error(exception);
+    this.logger.error(exception);
 
     const { httpAdapter } = this.httpAdapter;
 
