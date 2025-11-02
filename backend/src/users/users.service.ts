@@ -9,7 +9,8 @@ export class UsersService {
   constructor(private usersRepository: UsersRepository) {}
 
   async createUser(data: IUser): Promise<IMessageInterface> {
-    const user = await this.usersRepository.getUserById(data.id!);
+    const user = await this.usersRepository.getUserById(data.id ?? '');
+
     if (user) {
       throw new HttpException(
         `Usuário já cadastrado com o ID: ${data.id}`,

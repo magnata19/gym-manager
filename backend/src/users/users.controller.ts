@@ -15,6 +15,7 @@ import { CustomUserLoggerService } from 'src/custom-loggers/custom-user-logger.s
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IResponseUserDto } from './dto/response-user.dto';
 import { NotFoundExceptionDocResponse } from 'src/shared/utils/not-found-exception-doc-response';
+import { HashPasswordPipe } from 'src/pipes/hash-password.pipe';
 
 @Controller('users')
 @ApiTags('users')
@@ -28,10 +29,16 @@ export class UsersController {
   @ApiResponse({ status: 201, description: 'Usuário criado com sucesso.' })
   @ApiResponse({ status: 400, description: 'Dados inválidos.' })
   @Post()
-  async createUser(@Body() data: CreateUserDto): Promise<IMessageInterface> {
+  async createUser(
+    @Body() data: CreateUserDto,
+    @Body('password', HashPasswordPipe) hashPassword: string,
+  ): Promise<IMessageInterface> {
     this.logger.setContext('UsersController');
     this.logger.colorizedLog(data);
-    return this.usersService.createUser(data);
+    return this.usersService.createUser({
+      ...data,
+      password: hashPassword,
+    });
   }
 
   @ApiOperation({ summary: 'Recupera todos os usuários.' })
@@ -81,8 +88,12 @@ export class UsersController {
   async updateUser(
     @Param('id') id: string,
     @Body() body: Partial<CreateUserDto>,
+    @Body('password', HashPasswordPipe) hashPassword: string,
   ): Promise<IMessageInterface> {
-    return this.usersService.updateUser(id, body);
+    return this.usersService.updateUser(id, {
+      ...body,
+      password: hashPassword,
+    });
   }
 
   @ApiOperation({ summary: 'Deleta um usuário pelo ID.' })
