@@ -67,9 +67,10 @@ export class UsersController {
   async getUserById(@Param('id') id: string): Promise<IResponseUserDto> {
     const user = await this.usersService.getUserById(id);
     return {
-      id: user.id!,
+      id: user.id ?? '',
       name: user.name,
       email: user.email,
+      role: user.role ?? [],
     };
   }
 

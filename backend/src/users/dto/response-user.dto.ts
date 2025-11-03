@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { UserRole } from '../interface/UserRole';
 
 export class IResponseUserDto {
   @ApiProperty({
@@ -13,4 +14,5 @@ export class IResponseUserDto {
     description: 'Email do usuário',
   })
   email: string;
+  role: UserRole[];
 }

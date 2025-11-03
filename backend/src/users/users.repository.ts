@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { IUser } from './interface/IUser';
+import { Role } from 'generated/prisma/enums';
 
 @Injectable()
 export class UsersRepository {
@@ -8,18 +9,21 @@ export class UsersRepository {
 
   async createUser(data: IUser): Promise<any> {
     return this.prismaService.user.create({
-      data,
+      data: {
+        ...data,
+        role: data.role ? data.role : [Role.USER],
+      },
     });
   }
 
-  async getUsers(): Promise<IUser[]> {
+  async getUsers(): Promise<any[]> {
     return this.prismaService.user.findMany();
   }
 
   async getUserById(id: string): Promise<IUser | null> {
     return this.prismaService.user.findUnique({
       where: { id },
-    });
+    }) as Promise<IUser | null>;
   }
 
   async updateUser(id: string, data: Partial<IUser>): Promise<any> {
@@ -27,7 +31,10 @@ export class UsersRepository {
       where: {
         id,
       },
-      data,
+      data: {
+        ...data,
+        role: data.role,
+      },
     });
   }
 
