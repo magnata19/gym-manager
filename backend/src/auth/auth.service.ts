@@ -19,7 +19,7 @@ export class AuthService {
     }
 
     const payload: IAuthenticate = {
-      sub: user!.id,
+      id: user!.id,
       email: user!.email,
     };
 

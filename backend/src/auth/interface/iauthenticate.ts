@@ -1,4 +1,4 @@
 export interface IAuthenticate {
-  sub: string;
+  id: string;
   email: string;
 }

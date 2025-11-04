@@ -9,6 +9,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
+import { Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { IMessageInterface } from './interface/IMessageResponse';
@@ -18,6 +19,7 @@ import { IResponseUserDto } from './dto/response-user.dto';
 import { NotFoundExceptionDocResponse } from 'src/shared/utils/not-found-exception-doc-response';
 import { HashPasswordPipe } from 'src/pipes/hash-password.pipe';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { IRequest } from 'src/shared/interface/IRequest';
 
 @Controller('users')
 @ApiTags('users')
@@ -89,15 +91,22 @@ export class UsersController {
   })
   @ApiResponse({ status: 400, description: 'Dados inválidos.' })
   @Put(':id')
+  @UseGuards(AuthGuard)
   async updateUser(
     @Param('id') id: string,
     @Body() body: Partial<CreateUserDto>,
     @Body('password', HashPasswordPipe) hashPassword: string,
+    @Req() request: IRequest,
   ): Promise<IMessageInterface> {
-    return this.usersService.updateUser(id, {
-      ...body,
-      password: hashPassword,
-    });
+    console.log('Controller:', request.user);
+    return this.usersService.updateUser(
+      id,
+      {
+        ...body,
+        password: hashPassword,
+      },
+      request,
+    );
   }
 
   @ApiOperation({ summary: 'Deleta um usuário pelo ID.' })

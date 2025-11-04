@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   BadRequestException,
@@ -25,7 +26,7 @@ export class AuthGuard implements CanActivate {
       throw new BadRequestException('Token de autenticação não fornecido');
     }
     try {
-      const payload: IAuthenticate = await this.jwtService.verifyAsync(token, {
+      const payload = await this.jwtService.verifyAsync(token, {
         secret: this.configService.get<string>('SECRET_KEY'),
       });
       request.user = payload;
