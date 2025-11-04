@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -16,6 +17,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IResponseUserDto } from './dto/response-user.dto';
 import { NotFoundExceptionDocResponse } from 'src/shared/utils/not-found-exception-doc-response';
 import { HashPasswordPipe } from 'src/pipes/hash-password.pipe';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('users')
 @ApiTags('users')
@@ -48,6 +50,7 @@ export class UsersController {
     type: [IResponseUserDto],
   })
   @Get()
+  @UseGuards(AuthGuard)
   async getUsers(): Promise<IResponseUserDto[]> {
     return this.usersService.getAllUsers();
   }

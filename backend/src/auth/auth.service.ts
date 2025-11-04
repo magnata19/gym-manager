@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcryptjs';
+import { IAuthenticate } from './interface/iauthenticate';
 
 @Injectable()
 export class AuthService {
@@ -17,10 +18,9 @@ export class AuthService {
       throw new UnauthorizedException('E-mail ou senha inválidos.');
     }
 
-    const payload = {
-      sub: user?.id,
-      email: user?.email,
-      role: user?.role,
+    const payload: IAuthenticate = {
+      sub: user!.id,
+      email: user!.email,
     };
 
     return {
