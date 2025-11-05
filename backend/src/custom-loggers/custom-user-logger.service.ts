@@ -1,6 +1,6 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
 import { bgMagenta, white } from 'colors';
-import { IUser } from 'src/users/interface/IUser';
+import { IUser } from 'src/modules/users/interface/IUser';
 
 @Injectable()
 export class CustomUserLoggerService extends ConsoleLogger {

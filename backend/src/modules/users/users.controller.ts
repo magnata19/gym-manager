@@ -18,7 +18,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IResponseUserDto } from './dto/response-user.dto';
 import { NotFoundExceptionDocResponse } from 'src/shared/utils/not-found-exception-doc-response';
 import { HashPasswordPipe } from 'src/pipes/hash-password.pipe';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from 'src/modules/auth/auth.guard';
 import { IRequest } from 'src/shared/interface/IRequest';
 
 @Controller('users')
