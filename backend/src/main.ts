@@ -10,7 +10,7 @@ async function bootstrap() {
     .setTitle('Gym Manager API')
     .setDescription('API para gerenciamento de treinos.')
     .setVersion('1.0')
-    .addTag('gym')
+    .addTag('Gym Manager')
     .build();
   const docFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, docFactory());

@@ -1,20 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class NotFoundExceptionDocResponse {
+export class UnauthorizedExceptionDocResponse {
   @ApiProperty({
-    example: 'Usuário com ID {id} não encontrado',
-    description: 'Mensagem de erro indicando que o recurso não foi encontrado',
+    example: 'E-mail ou senha inválidos.',
+    description: 'Mensagem de erro informando que a autenticação falhou.',
   })
   message: string;
 
   @ApiProperty({
-    example: 'Not Found',
+    example: 'Unauthorized',
     description: 'Código de status HTTP',
   })
   error: string;
 
   @ApiProperty({
-    example: 404,
+    example: 401,
     description: 'Código de status HTTP',
   })
   statusCode: number;

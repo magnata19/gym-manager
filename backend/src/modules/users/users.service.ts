@@ -58,7 +58,6 @@ export class UsersService {
       throw new NotFoundException(`Usuário com ID ${id} não encontrado`);
     }
     if (request.user.id! !== id) {
-      console.log(request.user.id, id);
       throw new BadRequestException(
         'Você só pode atualizar suas próprias informações.',
       );

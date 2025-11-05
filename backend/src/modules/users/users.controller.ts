@@ -22,7 +22,7 @@ import { AuthGuard } from 'src/modules/auth/auth.guard';
 import { IRequest } from 'src/shared/interface/IRequest';
 
 @Controller('users')
-@ApiTags('users')
+@ApiTags('Users')
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
