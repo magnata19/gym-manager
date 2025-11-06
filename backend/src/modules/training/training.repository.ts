@@ -23,8 +23,37 @@ export class TrainingRepository {
       where: {
         userId: userId,
       },
-      include: {
-        user: true,
+    });
+  }
+
+  async getTrainingById(userId: string, trainingId: string) {
+    return this.prismaService.training.findFirst({
+      where: {
+        userId,
+        id: trainingId,
+      },
+    });
+  }
+
+  async updateTraining(
+    userId: string,
+    trainingId: string,
+    body: Partial<ITraining>,
+  ) {
+    return this.prismaService.training.update({
+      where: {
+        userId,
+        id: trainingId,
+      },
+      data: body,
+    });
+  }
+
+  async deleteTraining(trainingId: string, userId: string): Promise<any> {
+    return this.prismaService.training.delete({
+      where: {
+        userId,
+        id: trainingId,
       },
     });
   }
